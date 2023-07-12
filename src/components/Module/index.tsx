@@ -1,25 +1,24 @@
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { ChevronDown } from "lucide-react";
 import { useCallback } from "react";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../store";
-import { updateCurrentLesson } from "../../store/slices/player";
+import { useStore } from '../../zustand-store';
 import { Lesson } from "../Lesson";
 import { ModuleProps } from "./types";
 
 export function Module({ moduleIndex, title, amountOfLessons }: ModuleProps) {
-  const lessons = useSelector((state: RootState) => state.player.course?.modules[moduleIndex].lessons)
-  const dispatch = useAppDispatch()
+  const { updateCurrentLesson, course, currentModuleIndex, currentLessonIndex: currentLesson } = useStore(store => {
+    return {
+      course: store.course,
+      updateCurrentLesson: store.updateCurrentLesson,
+      currentModuleIndex: store.currentModuleIndex,
+      currentLessonIndex: store.currentLessonIndex,
+    }
+  })
+  const lessons = course?.modules[moduleIndex].lessons
 
   const handleCurrentVideo = useCallback((currentModuleIndex: number, currentLessonIndex: number) => {
-    dispatch(updateCurrentLesson({ currentModuleIndex, currentLessonIndex }))
+    updateCurrentLesson({ currentModuleIndex, currentLessonIndex })
   }, [])
-
-  const { currentModuleIndex, currentLessonIndex: currentLesson } = useSelector((state: RootState) => {
-    const { currentModuleIndex, currentLessonIndex } = state.player
-
-    return { currentModuleIndex, currentLessonIndex }
-  })
 
   return (
     <Collapsible.Root className="group" defaultOpen={moduleIndex === 0}>

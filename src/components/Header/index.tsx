@@ -1,8 +1,7 @@
-import { useSelector } from "react-redux"
-import { useCurrentLesson } from "../../store/slices/player"
+import { useCurrentLesson } from '../../zustand-store'
 
 export function Header() {
-  const { currentModule, currentLesson } = useSelector(useCurrentLesson)
+  const { currentModule, currentLesson } = useCurrentLesson()
 
   return (
     <div className="flex flex-col gap-1">

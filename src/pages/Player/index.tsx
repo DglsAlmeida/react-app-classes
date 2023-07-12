@@ -1,18 +1,20 @@
 import { MessageCircle } from 'lucide-react'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { Header } from '../../components/Header'
 import { Module } from '../../components/Module'
 import { Video } from '../../components/Video'
-import { RootState, useAppDispatch } from '../../store'
-import { loadCourse } from '../../store/slices/player'
+import { useStore } from '../../zustand-store'
 
 export function Player() {
-  const modules = useSelector((state: RootState) => state.player.course?.modules)
-  const dispatch = useAppDispatch()
+  const { course, load } = useStore(store => {
+    return {
+      course: store.course,
+      load: store.load,
+    }
+  })
 
   useEffect(() => {
-    dispatch(loadCourse())
+    load()
   }, [])
 
   return (
@@ -30,11 +32,11 @@ export function Player() {
 
         <main className='relative flex overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 shadow pr-80'>
           <div className='flex-1'>
-           <Video />
+            <Video />
           </div>
 
           <aside className='w-80 absolute top-0 bottom-0 right-0 border-l divide-y-2 divide-zinc-900 border-zinc-800 bg-zinc-900 overflow-y-scroll scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800'>
-            {modules && modules.map((module, index) => (
+            {course?.modules && course?.modules.map((module, index) => (
               <Module key={module.id} moduleIndex={index} title={module.title} amountOfLessons={module.lessons.length} />
             ))}
           </aside>

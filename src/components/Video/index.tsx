@@ -1,22 +1,24 @@
 import { Loader } from "lucide-react";
 import ReactPlayer from "react-player";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../store";
-import { nextLesson, useCurrentLesson } from "../../store/slices/player";
+import { useCurrentLesson, useStore } from '../../zustand-store';
 
 export function Video() {
-  const dispatch = useAppDispatch()
+  const { nextLesson, isLoading } = useStore(store => {
+    return {
+      isLoading: store.isLoading,
+      nextLesson: store.nextLesson
+    }
+  })
 
-  const { currentLesson } = useSelector(useCurrentLesson)
-  const isCourseLoading = useSelector((state: RootState) => state.player.isLoading)
+  const { currentLesson } = useCurrentLesson()
 
   const handlePlayNext = () => {
-    dispatch(nextLesson())
+    nextLesson()
   }
 
   return (
     <div className='w-full bg-zinc-950 aspect-video'>
-      {isCourseLoading ? (
+      {isLoading ? (
         <div className="flex h-full items-center justify-center">
           <Loader className="w-6 h-6 text-zinc-400 animate-spin" />
         </div>

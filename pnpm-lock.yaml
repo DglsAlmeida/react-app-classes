@@ -25,6 +25,7 @@ specifiers:
   typescript: ^5.0.2
   vite: ^4.3.9
   vitest: ^0.32.4
+  zustand: ^4.3.9
 
 dependencies:
   '@radix-ui/react-collapsible': 1.0.3_hrrtw4it2dqo6rzcqzvl36ff7i
@@ -37,6 +38,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-player: 2.12.0_react@18.2.0
   react-redux: 8.1.1_hrrtw4it2dqo6rzcqzvl36ff7i
+  zustand: 4.3.9_react@18.2.0
 
 devDependencies:
   '@types/react': 18.2.14
@@ -4372,3 +4374,19 @@ packages:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
     dev: true
+
+  /zustand/4.3.9_react@18.2.0:
+    resolution: {integrity: sha512-Tat5r8jOMG1Vcsj8uldMyqYKC5IZvQif8zetmLHs9WoZlntTHmIoNM8TpLRY31ExncuUvUOXehd0kvahkuHjDw==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false
